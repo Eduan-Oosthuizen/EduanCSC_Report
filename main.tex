@@ -1,9 +1,49 @@
-\documentclass[12pt, a4paper]{report}
+\documentclass[a4paper,12pt]{article}
 
-\usepackage{}
+\usepackage{upreport}
+
+\title{Interactive time-series data analysis using a web application}
+\author{Eduan Oosthuizen}
+\studentnumber{130 191 05}
+\subject{CSC 411}
+\date{\today}
 
 \begin{document}
+
+\maketitle
+\makecoverpage
+
+\pagestyle{plain}
+\thispagestyle{plain}
+\pagenumbering{roman}
+
+\begin{center}
+\LARGE\textbf{\thetitle}
+\end{center}
+
+\section*{Synopsis}
+This is the synopsis
+
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
+%\chapter*{Nomenclature}
+\printnomenclature
+\newpage
+
+\pagestyle{plain}
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
 \section{Introduction}
+% Background, problem statement, purpose, method, scope
+
+\section{Theory}
+% Summary of the relevant theory, including ample references. You can refer to citations like~\citep{bruckmanmandersloot} for an inline reference or \citep{bruckmanmandersloot} to get the citation in parentheses. You can also cite multiple authors~\citep{mandersloot,bruckmanmandersloot}
 
 \section{Information visualisation}
 As noted by Few (2009: 11) the term \emph{data analysis} is one so often used that its meaning has become unclear./
@@ -35,28 +75,33 @@ of the data and the relative relationships between these components for the purp
  that facilitates the process of data analysis should,
  ideally fade from the cognitive load so that the full human capacity may be applied solely to understanding the information
  and its implications.
- Card (2004) echoes this purpose by stating that information visualisation is about external cognition- hoe resources outside the mind
+ Card (2004) echoes this purpose by stating that information visualisation is about external cognition- how resources outside the mind
  boost the cognitive capabilities of the mind.
  
  Tukey and Wilk (1965) made the following observation:
- `` As in any other science, what is doine in data analysis is very much a product of each day's technology.
+ `` As in any other science, what is done in data analysis is very much a product of each day's technology.
  Every external technological development of major relevance- organised tables of functions, knowledge of the mathematical consequences of
- the Gausian law of erro, desk calculators, stored-program electronic computers, graphical display facilities-
+ the Gausian law of error, desk calculators, stored-program electronic computers, graphical display facilities-
  has been accompanied by a tendency to rediscover the importance and identity of data analysis.'
 
- Why information visualisation remains relevant to engineering diciplines is well stated by Ware (2004, xxi)./
+ Why information visualisation remains relevant to engineering disciplines is well stated by Ware (2004, xxi)./
  He describes the human visual system as a most effective pattern seeker and that the eyes and visual cortex of the
- brain act as a parrallel processor to provide the highest bandwidth channel into human cognitive centres.
+ brain act as a parallel processor to provide the highest bandwidth channel into human cognitive centres.
 
  There is therefore a need to employ modern computing power and development to make data analysis easier and more
  effective (Few: 2009, 17).
 
- \section{Design of time-series data analysis system}
+ \section{Design of a time-series data analysis system}
  In the design of a computer-based system it is necessary to apply good design principles that allow for ease of use that compliments the
  functionality offered by the system. If this is not the case some of the cognitive load on humans that has been removed by the system's tools
- is again taken up in trying to interact with an unaccomodating interface.
+ is again taken up in trying to interact with an un-accommodating interface.
 
  \section{Design of visualisations that compliment human perception}
+ \subsection{Human visual perception}
+ Ware (2004, xxi) states that the human visual system can only identify patterns when they are presented effectively according to the
+rules of human visual perception. This motivates great care to be taken in inventing information visualisation to adhere to how humans
+see to allow for the purpose of information visualisation to help humans think (Few: 2009, 2, 13) to be met.
+ 
  Few (2009: 33) explores the use of knowledge concerning human perception to ensure effective visualisation of information.
  As an introduction to the following discussion it must be noted that human visual perception:
  % Enter unordered list here, use dashes?
@@ -64,10 +109,10 @@ of the data and the relative relationships between these components for the purp
    \item{drawn to identify familiar patterns}
    \item{has very limited working memory}
      
-     Humans percieve several basic attributes of a visual image before the image is consciously addressed. These attributes are termed
+     Humans perceive several basic attributes of a visual image before the image is consciously addressed. These attributes are termed
      \emph{pre-attentive attributes}(Bertin, 1963; Few: 2009, 38).
 
-     With abstract information, such as time series-data, pre-attentive attirbutes are exploited visualisation as they determine what
+     With abstract information, such as time series-data, pre-attentive attributes are exploited visualisation as they determine what
      visual details are passed to conscious attention (Ware: 2004, 163). FIGURE?? shows these attributes as reported by Ware (2013, WEB)
      %
      %
@@ -80,9 +125,9 @@ of the data and the relative relationships between these components for the purp
 
      Each of these attributes are used to accentuate different properties information./
      Shape and colour are principally used for distinction of objects in a visualisation. These pre-attentive attributes naturally
-     distinguish sets of information that are qualititatively different from each other. (Few: 2009, 40)/ %QUESTION: inline referencing for a paragraph?
-     There are also pre-attentive attributes that are naturally percieved quantitatively without arbitrary values being assigned to them, those
-     of which identified by Few (2009: 41) are included in FIGURE??. Of these, only length and 2D position are percieved with a high degree of precision.
+     distinguish sets of information that are qualitatively different from each other. (Few: 2009, 40)/ %QUESTION: inline referencing for a paragraph?
+     There are also pre-attentive attributes that are naturally perceived quantitatively without arbitrary values being assigned to them, those
+     of which identified by Few (2009: 41) are included in FIGURE??. Of these, only length and 2D position are perceived with a high degree of precision.
      %
      %
      %
@@ -93,11 +138,34 @@ of the data and the relative relationships between these components for the purp
      %
      %
 
-     It is also worthy to note that 
-     
+     Although many types of visualisations can be developed using pre-attentive attributes, most quantitative information can by accurately visualised using only four objects (Few, 2009: 46):
+     	\item{\emph{Points}, which use the 2D position of the object to encode values
+	\item{\emph{Lines}, which use the 2D position of a series of points connected by a line to communicate shape of the series
+	\item{\emph{Bars}, which communicate values using the height of the bar, when vertical, or the length of the bar, when horizontal.
+	\item{\emph{Boxes}, which communicate the distribution of a series of values by length and intrinsically the median by the middle of the bar.
+	
+ When designing a visualisation a next important characteristic of human sight is that perception is significantly influenced by the context within which a visual attribute is observed (Few, 2009: 48). This implies
+ that for good visualisation design it is necessary that attributes that vary significantly be chosen to differentiate between different quantitative or qualitative values./
+ The use of sharp-contrasting visual attributes are, however, limited due to pre-attentive attributes becoming less distinct as the variety of distracting attributes increase, despite non-similarity between the
+ attributes present (Ware: 2004, 167).
  
+\subsection{Human memory}
+For the design of a time-series data analysis system interface short and long term human memory were taken into account. When attempting to enhance human cognitive ability, however, 
+the available working memory limits how much information humans can consider at once (Few, 2009: 50). Now working memory is again sub-divided for different types of information- the sub-allocation
+visual information allows only three slots./
+The power of visualisation then becomes apparent when keeping in mind that each value in a data table would occupy a slot of working memory. Visualising this data as a line, however, allows for a single
+slot to house the entire series (Few: 2009, 50).
+
+The limit of human memory is not only overcome by the grouping of single or simple elements into groups, but also by providing externally recorded data sources, of which the simplest example 
+is writing information down on paper for easy reference (Few: 2009, 51).
+An information visualisation is therefore able to make analysing complex data with many inter-related series of information a flowing experience of question and exploration of relationships .
+This, however, necessitates placing all relevant information on a single window to avoid interruption of thought when changing between windows in search of needed information(Few: 2009, 51).
+
+As information visualisation facilitates a more complex structure of information to be represented than human working memory would allow, people with this cognitive tool are more effective thinkers 
+than people that do not have access to such tools (Ware: 2005, 29). 
+
+\subsection{Interaction of humans with information visualisation systems}
+Few (2009: 55-91) 
 \end{document}
 
-Ware (2004, xxi) states that the human visual system can only identify patterns when they are presented effectively according to the
-rules of human visual perception. This motivates great care to be taken in inventing information visualisation to adhere to how humans
-see to allow for the purpose of information visualisation to help humans think (Few: 2009, 2, 13) to be met.
+
