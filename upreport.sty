@@ -66,7 +66,7 @@
 %\usepackage{fancyhdr}
 
 % Nomenclature list
-\usepackage{nomencl}
+\usepackage[intoc]{nomencl}
 \makenomenclature % required by nomencl -- used to be \makeglossary
 % For indexing of document
 
@@ -78,9 +78,9 @@
 \usepackage{pdflscape}
 
 % Enable the default extensions for PDFTeX
-%\DeclareGraphicsExtensions{.jpg, .pdf, .mps, .png}
+\DeclareGraphicsExtensions{.jpg, .pdf, .mps, .png}
 % Define a default graphics path as graph
-%\graphicspath{{graph/}}
+\graphicspath{{graph/}}
 
 % commands 
 \newcommand*{\subject}[1]{\gdef\@subject{#1}}
@@ -144,6 +144,3 @@
 }
 
 \newcommand{\thetitle}{\@title}
-
-%Add unorder and ordered list capability
-\usepackage{enumitem}
